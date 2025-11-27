@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ProjectMKxqlerd49 — Movie Discovery Portal</title>
+    <meta name="description" content="Cinematic movie portal with voice search, recommendations, poll, trailers and more.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Loader -->
+<div id="loader">
+    <div style="font-size:18px">Preparing movie portal…</div>
+    <div class="loader-bar"><div id="loaderProgress" class="loader-progress"></div></div>
+    <div class="note">Loading movies...</div>
+</div>
+
+<!-- Background layers -->
+<div id="bg" class="bg"></div>
+<div class="parallaxLayer"></div>
+
+<!-- Author Watermark - будет скрыто на мобильных -->
+<div class="watermark">by Emir MK49 & Ramazan xqlerd</div>
+
+<!-- Header -->
+<div class="header">
+    <h1>ProjectMKxqlerd49</h1>
+    <p class="lead">A website to help you decide what to watch from the most popular movies of all time!</p>
+</div>
+
+<!-- Controls -->
+<div class="controls">
+    <div class="seg" id="seg">
+        <button data-genre="Action" class="active">Action</button>
+        <button data-genre="Drama">Drama</button>
+        <button data-genre="Sci-Fi">Sci-Fi</button>
+        <button data-genre="Comedy">Comedy</button>
+        <button data-genre="Favorites">Favorites</button>
+    </div>
+
+    <input id="search" class="search" placeholder="Search movies..." />
+    <select id="sort" class="sort">
+        <option value="name">A–Z</option>
+        <option value="year">By year</option>
+        <option value="rating">By rating</option>
+    </select>
+</div>
+
+<!-- Main -->
+<div class="wrap">
+    <div class="panel">
+        <div class="banner">
+            <div class="left">
+                <h2 id="heroTitle">Featured Movie</h2>
+                <p id="heroTag" class="note" style="height: 60px; overflow: hidden;">Select a featured movie to display here</p>
+                <div style="margin-top:10px">
+                    <button id="playHero" class="primary">Open featured</button>
+                    <button id="randomBtn" class="iconBtn small">Random featured</button>
+                </div>
+                <div class="featured-controls" style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button class="featured-btn small" data-movie="madmax">Mad Max</button>
+                    <button class="featured-btn small" data-movie="shawshank">Shawshank</button>
+                    <button class="featured-btn small" data-movie="interstellar">Interstellar</button>
+                    <button class="featured-btn small" data-movie="matrix">Matrix</button>
+                </div>
+            </div>
+            <div class="poster" id="heroPoster">
+                <div style="text-align: center; padding: 20px; color: var(--muted);">
+                    <div style="font-size: 48px; margin-bottom: 10px;">🎬</div>
+                    <div>Select featured movie</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="viewport" id="viewport">
+            <div class="carousel" id="carousel"></div>
+        </div>
+    </div>
+
+    <!-- Rating Section -->
+    <div class="panel" style="margin-top: 20px;">
+        <div class="banner">
+            <div class="left">
+                <h2>Rate Our Movie Portal</h2>
+                <p class="note">How would you rate your experience with our movie collection?</p>
+                <div id="ratingMessage" style="color: var(--accent2); font-size: 14px; margin-bottom: 10px;"></div>
+                <div class="rating-stars" style="margin: 15px 0;">
+                    <span class="star" data-rating="1">☆</span>
+                    <span class="star" data-rating="2">☆</span>
+                    <span class="star" data-rating="3">☆</span>
+                    <span class="star" data-rating="4">☆</span>
+                    <span class="star" data-rating="5">☆</span>
+                </div>
+                <div id="ratingResult" style="color: var(--accent2); font-weight: bold; margin: 10px 0;"></div>
+                <div id="ratingStats" style="font-size: 14px; color: var(--muted);">
+                    Average rating: <span id="avgRating">0</span> ★ (<span id="totalRatings">0</span> votes)
+                </div>
+            </div>
+            <div style="width: 320px; display: flex; align-items: center; justify-content: center;">
+                <div style="text-align: center;">
+                    <div style="font-size: 48px; color: gold; margin-bottom: 10px;">⭐</div>
+                    <div style="color: var(--muted);">Your opinion matters!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Poll Section -->
+    <div class="panel" style="margin-top: 20px;">
+        <div class="banner">
+            <div class="left">
+                <h2>Movie Preferences Quiz</h2>
+                <p class="note">Select your preferences to get personalized movie recommendations</p>
+                <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px">
+                    <label class="poll-option"><input type="checkbox" class="q" data-map="Action"> 🚀 Fast-paced, high-energy films</label>
+                    <label class="poll-option"><input type="checkbox" class="q" data-map="Drama"> 🎭 Deep, emotional stories</label>
+                    <label class="poll-option"><input type="checkbox" class="q" data-map="Sci-Fi"> 🌌 Sci-fi & mind-bending</label>
+                    <label class="poll-option"><input type="checkbox" class="q" data-map="Comedy"> 😂 Light & funny</label>
+                    <label class="poll-option"><input type="checkbox" class="q" data-map="Classic"> ⭐ Timeless classics</label>
+                    <label class="poll-option"><input type="checkbox" class="q" data-map="Visual"> 🎨 Stunning visuals & cinematography</label>
+                </div>
+                <div style="margin-top:20px">
+                    <button id="submitPoll" class="primary">Get recommendations</button>
+                    <div id="pollResult" style="margin-top:12px;color:var(--muted)"></div>
+                    <div class="achievements" id="achievements"></div>
+                </div>
+            </div>
+            <div style="width: 320px; display: flex; align-items: center; justify-content: center;">
+                <div style="text-align: center;">
+                    <div style="font-size: 48px; margin-bottom: 10px;">🎯</div>
+                    <div style="color: var(--muted);">Find your perfect movie match!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer с авторскими правами -->
+<div class="footer" style="text-align:center;padding:20px;color:rgba(230,238,246,0.7);margin-top:40px;">
+    <div style="margin-bottom: 8px;">All data stored locally. Enjoy your movie experience!</div>
+    <div style="font-size: 14px;font-weight:600;">&copy; 2024 Emir MK49 & Ramazan xqlerd. All rights reserved.</div>
+</div>
+
+<!-- SIMPLE MODAL -->
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <div class="modal-poster">
+            <img id="modalImg" src="" alt="Movie Poster">
+        </div>
+        <div class="modal-body">
+            <h2 class="modal-title" id="modalTitle">Movie Title</h2>
+            <div class="modal-meta" id="modalMeta">Year • Rating</div>
+            <div class="modal-desc-container">
+                <p class="modal-desc" id="modalDesc">Movie description will appear here...</p>
+            </div>
+            <hr class="modal-divider">
+            <div class="modal-actors" id="modalActors">
+                <strong style="color:#fff">Cast:</strong> —
+            </div>
+            <div class="modal-actions">
+                <button id="modalTrailer" class="primary small">Play trailer</button>
+                <button id="modalLike" class="iconBtn small">🤍 Like</button>
+                <button id="modalFav" class="iconBtn small">☆ Add to Favorites</button>
+                <button id="modalClose" class="iconBtn small">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
